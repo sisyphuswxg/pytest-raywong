@@ -18,5 +18,12 @@ run = 'fc("/d")'
 
 
 if __name__ == "__main__":
+    # 等价于执行：
+    # timeit.timeit('fc("/d")', 
+    #               setup='from argcomplete.completers import FilesCompleter as completer\n'
+    #                     'fc = completer()',
+    #               number=count)
+    print("argcomplete - FilesCompleter:")
     print(timeit.timeit(run, setup=setup % imports[0], number=count))
+    print("pytest - FastFilesCompleter:")
     print(timeit.timeit(run, setup=setup % imports[1], number=count))
