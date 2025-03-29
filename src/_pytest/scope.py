@@ -58,6 +58,8 @@ class Scope(Enum):
         other_index = _SCOPE_INDICES[other]
         return self_index < other_index
 
+    # 类方法，将用户提供的作用域名称（字符串）转换为Scope枚举对象
+    # Demo：scope = Scope.from_user("function", "Test fixture") 返回: Scope.Function
     @classmethod
     def from_user(
         cls, scope_name: _ScopeName, descr: str, where: str | None = None
@@ -84,8 +86,27 @@ class Scope(Enum):
 
 
 _ALL_SCOPES = list(Scope)
+# _ALL_SCOPES:
+# [<Scope.Function: 'function'>, <Scope.Class: 'class'>, <Scope.Module: 'module'>, <Scope.Package: 'package'>, <Scope.Session: 'session'>]
 _SCOPE_INDICES = {scope: index for index, scope in enumerate(_ALL_SCOPES)}
+# _SCOPE_INDICES:
+# {
+#     <Scope.Function: 'function'>: 0,
+#     <Scope.Class: 'class'>: 1,
+#     <Scope.Module: 'module'>: 2,
+#     <Scope.Package: 'package'>: 3,
+#     <Scope.Session: 'session'>: 4
+# }
 
 
 # Ordered list of scopes which can contain many tests (in practice all except Function).
 HIGH_SCOPES = [x for x in Scope if x is not Scope.Function]
+# HIGH_SCOPES（可包含多个测试）: 去掉了最低级别的Function
+# [<Scope.Class: 'class'>, <Scope.Module: 'module'>, <Scope.Package: 'package'>, <Scope.Session: 'session'>]
+
+
+if __name__ == "__main__":
+    print(_ALL_SCOPES)
+    print(_SCOPE_INDICES)
+    print(HIGH_SCOPES)
+
